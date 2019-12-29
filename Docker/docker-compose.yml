@@ -1,0 +1,19 @@
+version: '3'
+services:
+  db:
+    container_name: oracleDB
+    restart: always
+    environment: 
+      - SYS_PWD=admin123
+      - ENV_ORACLE=SE2 #UPPERCASE value SE2 | EE 
+    build:
+      context: ../.
+      dockerfile: Docker/oracle-12/Dockerfile
+    ports:
+      - "1521:1521"
+      - "8080:8080"
+      - "5500:5500"
+    volumes:
+      - "../oradata:/opt/oracle/oradata" # persistent oracle database data.
+      - ../scipt_db:/home/oracle
+    tty: true
