@@ -44,3 +44,30 @@ or posfou between 92000 and  93000
 or posfou between 77000 and 78000
 order by numfou asc; -- |dec
 
+------
+-- 6°)
+------
+
+-- 1
+select numcom, datecom
+from commande
+where to_char(datecom, 'MM') = 03
+or to_char(datecom, 'MM') = 04
+
+-- 2
+select numcom, datecom
+from commande
+where  REGEXP_LIKE (datecom, '(/03/|/04/)');
+
+-- 3
+select numcom, datecom
+from commande
+where to_char(datecom, 'MM') between 03 and 04
+
+------
+-- 7°)
+------
+
+select *
+from commande
+where obscom IS NOT NULL
