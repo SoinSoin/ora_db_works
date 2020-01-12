@@ -71,3 +71,94 @@ where to_char(datecom, 'MM') between 03 and 04
 select *
 from commande
 where obscom IS NOT NULL
+
+------
+-- 8°)
+------
+
+select qtecde*priuni as alli
+from ligcom
+group by qtecde , priuni
+order by alli desc
+
+------
+-- 9°)
+------
+select qtecde*priuni as val
+from ligcom
+where qtecde*priuni > 10000
+and qtecde >= 1000
+group by qtecde , priuni
+order by val desc
+
+------
+-- 10°)
+------
+
+select numcom, nomfou, datecom
+from commande
+join fournisseur on commande.id_fournisseur = fournisseur.id_fournisseur
+order by nomfou asc;
+
+------
+-- 11°)
+------
+select numcom,nomfou, qtecde*priuni as sous_total
+from ligcom
+join commande on ligcom.id_commande=commande.id_commande
+join fournisseur on commande.id_fournisseur=fournisseur.id_fournisseur
+where REGEXP_LIKE (upper(trim(commande.obscom)) , '(URGENT)')
+group by qtecde , priuni, numcom, nomfou
+
+------
+-- 12°)
+------
+
+-- 1
+select distinct nomfou
+from fournisseur, commande, ligcom
+where fournisseur.id_fournisseur=vente.id_fournisseur
+and vente.qte>1
+
+-- 2
+
+select distinct nomfou
+from fournisseur
+join vente on  fournisseur.id_fournisseur=vente.id_fournisseur
+and vente.qte>1
+-- 3
+
+select nomfou
+from fournisseur
+minus
+select distinct nomfou
+from fournisseur
+join vente on  fournisseur.id_fournisseur=vente.id_fournisseur
+and vente.qte like 0
+
+------
+-- 13°)
+------
+
+-- 1
+
+select nomfou,numcom, datecom
+from commande 
+join fournisseur on commande.id_fournisseur=fournisseur.id_fournisseur
+where commande.numcom like 70210
+
+-- 2
+
+select numcom, datecom
+from commande 
+minus
+select numcom, datecom
+from commande 
+join fournisseur on commande.id_fournisseur=fournisseur.id_fournisseur
+where commande.numcom not like 70210
+
+------
+-- 13°)
+------
+
+-- 1

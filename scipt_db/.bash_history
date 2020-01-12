@@ -108,3 +108,21 @@ env
 ./loader.sh 
 ./loader.sh 
 exit
+ls
+cd
+c
+ls
+cd ..
+ls
+cd ..
+ls
+cd bin
+ls
+addr2line
+cd ls
+cd..
+ls
+cd ..
+ls
+exi
+exit
