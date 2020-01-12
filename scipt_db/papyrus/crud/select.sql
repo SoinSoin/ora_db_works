@@ -158,7 +158,18 @@ join fournisseur on commande.id_fournisseur=fournisseur.id_fournisseur
 where commande.numcom not like 70210
 
 ------
--- 13°)
+-- 14°)
 ------
 
 -- 1
+
+select distinct codart, libart
+from produit
+join vente on produit.id_produit=vente.id_produit
+and qte like 0
+and prix<(select min(prix)
+        from produit
+        join vente on vente.id_produit=produit.id_produit
+        and REGEXP_LIKE (upper(trim(produit.codart)) , '^R')
+        and rownum like 1
+        group by prix );
